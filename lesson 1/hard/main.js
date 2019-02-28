@@ -9,4 +9,4 @@ for (var i = 0; i < arr.length-1; i++) {
 }
 
 arr2 =String(arr[0]).split("");
-console.log(arr2[0]+" "+arr2[1]);
+alert(arr2[0]+" "+arr2[1]);
