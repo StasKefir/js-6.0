@@ -15,7 +15,6 @@ for (i = 0; i < arr.length; i++) {
     arr2.push(arr[i]);
 }
 
-// console.log(arr2);
 arr=[];
 arr2.forEach(function(item,i,muus){
     let getTextItem = " Делители этого числа: 1 и " + item; 
@@ -23,3 +22,5 @@ arr2.forEach(function(item,i,muus){
     arr.push(summItemAndString);
 });
 console.log(arr);
+
+
