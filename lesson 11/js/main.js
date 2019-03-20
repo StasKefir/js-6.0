@@ -293,5 +293,4 @@ window.addEventListener('DOMContentLoaded', function() {
             formContact.appendChild(statusMessage);
             statusMessage.innerHTML ="Используйте цифры и знак +"; }
         });
-
 });
