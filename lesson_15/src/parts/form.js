@@ -84,4 +84,4 @@ function form(){
         });
 }
 
-modul.export = form;
+module.exports = form;

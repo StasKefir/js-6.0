@@ -60,4 +60,4 @@ function clock() {
     setClock('timer', deadLine);
 }
 
-modul.export = clock;
+module.exports = clock;

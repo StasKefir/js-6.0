@@ -63,4 +63,4 @@ function calc() {
     });
 }
 
-modul.export = calc;
+module.exports = calc;

@@ -17,4 +17,4 @@ function modalTabs() {
     });
 }
 
-modul.export = modalTabs;
+module.exports = modalTabs;

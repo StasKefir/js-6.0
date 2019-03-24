@@ -16,4 +16,4 @@ function modal() {
     });
 }
 
-modul.export = modal;
+module.exports = modal;

@@ -43,4 +43,4 @@ function contactForm() {
 
     });
 }
-modul.export = contactForm;
+module.exports = contactForm;
