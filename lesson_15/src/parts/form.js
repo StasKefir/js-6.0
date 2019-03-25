@@ -13,7 +13,15 @@ function form() {
 
 
     statusMessage.classList.add('status');
+    function validatePhone (a) {
+        return /^(\+|\d)\d{0,12}$/.test(a);
+    }
 
+    input[0].addEventListener('input', function(){
+        if (!validatePhone(this.value)) {
+            this.value = this.value.slice(0, -1);
+        }
+    });
     mainForm.addEventListener('submit', function (event) {
         inputWrapper = input[0].value;
         arr = inputWrapper.split('');
@@ -48,7 +56,7 @@ function form() {
                     requestSecond.send(json);
                 });
             } // end postData
-function clearInput() {
+            function clearInput() {
                 for (let i = 0; i < input.length; i++) {
                     input[i].value = '';
                 }

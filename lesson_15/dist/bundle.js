@@ -9937,16 +9937,10 @@ function calc() {
       this.value = this.value.slice(0, -1);
     }
 
-    if (persons.value == '') {
+    if (persons.value == '' || restDays.value == '') {
       totalValue.innerHTML = 0;
     } else {
-      total = (daysSum + personsSum) * 4000;
-
-      if (restDays.value == '') {
-        totalValue.innerHTML = 0;
-      } else {
-        totalValue.innerHTML = total;
-      }
+      totalValue.innerHTML = daysSum * personsSum * 4000 * place.options[place.selectedIndex].value;
     }
   });
   restDays.addEventListener('input', function () {
@@ -9956,16 +9950,10 @@ function calc() {
       this.value = this.value.slice(0, -1);
     }
 
-    if (restDays.value == '') {
+    if (persons.value == '' || restDays.value == '') {
       totalValue.innerHTML = 0;
     } else {
-      total = (daysSum + personsSum) * 4000;
-
-      if (persons.value == '') {
-        totalValue.innerHTML = 0;
-      } else {
-        totalValue.innerHTML = total;
-      }
+      totalValue.innerHTML = daysSum * personsSum * 4000 * place.options[place.selectedIndex].value;
     }
   });
   place.addEventListener('change', function () {
@@ -9973,7 +9961,7 @@ function calc() {
       totalValue.innerHTML = 0;
     } else {
       var a = total;
-      totalValue.innerHTML = a * this.options[this.selectedIndex].value;
+      totalValue.innerHTML = daysSum * personsSum * 4000 * this.options[this.selectedIndex].value;
     }
   });
 }
@@ -10073,6 +10061,16 @@ function contactForm() {
       inputWrapperContact,
       statusMessage = document.createElement('div'),
       arrContact;
+
+  function validatePhone(a) {
+    return /^(\+|\d)\d{0,12}$/.test(a);
+  }
+
+  inputContact[1].addEventListener('input', function () {
+    if (!validatePhone(this.value)) {
+      this.value = this.value.slice(0, -1);
+    }
+  });
   formContact.addEventListener('submit', function (event) {
     inputWrapperContact = inputContact[1].value;
     arrContact = inputWrapperContact.split('');
@@ -10143,6 +10141,16 @@ function form() {
       inputWrapper,
       arr;
   statusMessage.classList.add('status');
+
+  function validatePhone(a) {
+    return /^(\+|\d)\d{0,12}$/.test(a);
+  }
+
+  input[0].addEventListener('input', function () {
+    if (!validatePhone(this.value)) {
+      this.value = this.value.slice(0, -1);
+    }
+  });
   mainForm.addEventListener('submit', function (event) {
     inputWrapper = input[0].value;
     arr = inputWrapper.split('');

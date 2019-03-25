@@ -10,12 +10,24 @@ function contactForm() {
     inputWrapperContact,
     statusMessage = document.createElement('div'),
     arrContact;
-
+   
+    function validatePhone (a) {
+        return /^(\+|\d)\d{0,12}$/.test(a);
+    }
+    inputContact[1].addEventListener('input', function(){
+        if (!validatePhone(this.value)) {
+            this.value = this.value.slice(0, -1);
+        }
+    });
     formContact.addEventListener('submit', function(event){
+      
         inputWrapperContact=inputContact[1].value;
         arrContact= inputWrapperContact.split('');
         event.preventDefault();
         formContact.appendChild(statusMessage);
+        
+       
+
         let formData = new FormData(formContact);
 
             function postData(data) {
@@ -53,7 +65,7 @@ function contactForm() {
         .then(()=> statusMessage.innerHTML = message.success)
         .catch(()=>statusMessage.innerHTML = message.failure)
         .then(clearInput);
-
     });
+    
 }
 module.exports = contactForm;
