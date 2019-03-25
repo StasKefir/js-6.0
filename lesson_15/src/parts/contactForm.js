@@ -1,7 +1,14 @@
 function contactForm() {
+    let message = {
+        loading: "Loading",
+        success: "Спасибо! Скоро мы с Вами свяжемся",
+        failure: "Что-то пошло не так..."
+    };
+
     let formContact = document.getElementById("form"),
     inputContact = formContact.getElementsByTagName('input'),
     inputWrapperContact,
+    statusMessage = document.createElement('div'),
     arrContact;
 
     formContact.addEventListener('submit', function(event){
@@ -9,13 +16,13 @@ function contactForm() {
         arrContact= inputWrapperContact.split('');
         event.preventDefault();
         formContact.appendChild(statusMessage);
-        let formData2 = new FormData(formContact);
+        let formData = new FormData(formContact);
 
             function postData(data) {
                 return new Promise(function(resolve,reject){
             let requestSecond = new XMLHttpRequest();
             requestSecond.open('POST', 'server.php');
-            requestSecond.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
             requestSecond.addEventListener('readystatechange', function(){
                 if(requestSecond.readyState<4){
@@ -25,8 +32,14 @@ function contactForm() {
                 } else {
                     reject();
                 }
+            }); 
+            let obj = {};
+            formData.forEach(function (value, key) {
+            obj[key] = value;
             });
-            requestSecond.send(data);
+            let json = JSON.stringify(obj);
+           
+            requestSecond.send(json);
         });
         }// end postData
     function clearInput(){
@@ -35,7 +48,7 @@ function contactForm() {
         }
     }
 
-    postData(formData2)
+    postData(formData)
         .then(()=> statusMessage.innerHTML= message.loading)
         .then(()=> statusMessage.innerHTML = message.success)
         .catch(()=>statusMessage.innerHTML = message.failure)

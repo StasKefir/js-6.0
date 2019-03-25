@@ -1,6 +1,9 @@
 function modalTabs() {
     
-    let btnTabs = document.querySelectorAll('.description-btn');
+    let btnTabs = document.querySelectorAll('.description-btn'),
+        overlay = document.querySelector('.overlay'),
+        close = document.querySelector('.popup-close');
+        more = document.querySelector('.more'),
 
     btnTabs.forEach(function(item){
         item.addEventListener('click', function(){
