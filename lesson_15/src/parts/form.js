@@ -1,98 +1,72 @@
-'use strict';
-function form(){
+function form() {
     let message = {
         loading: "Loading",
         success: "Спасибо! Скоро мы с Вами свяжемся",
         failure: "Что-то пошло не так..."
     };
 
-    let form = document.querySelector(".main-form"),
-        input = form.getElementsByTagName('input'),
+    let mainForm = document.querySelector(".main-form"),
+        input = mainForm.getElementsByTagName('input'),
         statusMessage = document.createElement('div'),
         inputWrapper,
         arr;
-        
-        
-        statusMessage.classList.add('status');  
 
-        form.addEventListener('submit', function(event){
-            inputWrapper=input[0].value;
-            arr= inputWrapper.split('');
 
-            if(!isNaN(+input[0].value)){
+    statusMessage.classList.add('status');
 
-                event.preventDefault();
-                form.appendChild(statusMessage);
+    mainForm.addEventListener('submit', function (event) {
+        inputWrapper = input[0].value;
+        arr = inputWrapper.split('');
 
-                let request = new XMLHttpRequest();
-                request.open('POST', 'server.php');
-                request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        if (!isNaN(+input[0].value) || (input[0].value[0] == '+' && !(isNaN(+input[0].value.slice(1, input[0].value.length + 1))))) {
 
-                let formData = new FormData(form);
-                let obj = {};
-                formData.forEach(function (value, key) {
-                obj[key] = value;
+            event.preventDefault();
+            mainForm.appendChild(statusMessage);
+            let formData = new FormData(mainForm);
+
+            function postData(data) {
+                return new Promise(function (resolve, reject) {
+                    let requestSecond = new XMLHttpRequest();
+                    requestSecond.open('POST', 'server.php');
+                    requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+
+                    requestSecond.addEventListener('readystatechange', function () {
+                        if (requestSecond.readyState < 4) {
+                            resolve();
+                        } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
+                            resolve();
+                        } else {
+                            reject();
+                        }
+                    });
+                    let obj = {};
+                    data.forEach(function (value, key) {
+                        obj[key] = value;
+                    });
+                    let json = JSON.stringify(obj);
+
+                    requestSecond.send(json);
                 });
-                let json = JSON.stringify(obj);
-                request.send(json);
-
-                request.addEventListener('readystatechange', function(){
-                    if(request.readyState<4){
-                        statusMessage.innerHTML = message.loading;
-                    } else if(request.readyState == 4 && request.status == 200){
-                        statusMessage.innerHTML = message.success;
-                    } else {
-                        statusMessage.innerHTML = message.failure;
-                    }
-                });
-
-            for(let i=0; i<input.length; i++) {
-                input[i].value= '';
-            }
-        } else if (arr[0]==='+'){ let count=0;
-            for(let i=1; i<arr.length; i++){
-                if(typeof(arr[i])==='number'){count++;}
-                else{event.preventDefault();
-                    form.appendChild(statusMessage);
-                    statusMessage.innerHTML ="Используйте цифры и знак +"; 
-                    break;
+            } // end postData
+function clearInput() {
+                for (let i = 0; i < input.length; i++) {
+                    input[i].value = '';
                 }
-                if(count==arr.length-1){
-                    event.preventDefault();
-            form.appendChild(statusMessage);
-
-            let request = new XMLHttpRequest();
-            request.open('POST', 'server.php');
-            request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-
-            let formData = new FormData(form);
-            let obj = {};
-            formData.forEach(function (value, key) {
-            obj[key] = value;
-            });
-            let json = JSON.stringify(obj);
-            request.send(json);
-
-            request.addEventListener('readystatechange', function(){
-                if(request.readyState<4){
-                    statusMessage.innerHTML = message.loading;
-                } else if(request.readyState == 4 && request.status == 200){
-                    statusMessage.innerHTML = message.success;
-                } else {
-                    statusMessage.innerHTML = message.failure;
-                }
-            });
-
-            for(let i=0; i<input.length; i++) {
-                input[i].value= '';
             }
-            }
+
+            postData(formData)
+                .then(() => statusMessage.innerHTML = message.loading)
+                .then(() => statusMessage.innerHTML = message.success)
+                .catch(() => statusMessage.innerHTML = message.failure)
+                .then(clearInput);
+
+
+        } else {
+            event.preventDefault();
+            mainForm.appendChild(statusMessage);
+            statusMessage.innerHTML = "Используйте цифры и знак +";
         }
-        }
-        else { event.preventDefault();
-            form.appendChild(statusMessage);
-            statusMessage.innerHTML ="Используйте цифры и знак +"; }
-        });
+    });
 }
 
 module.exports = form;
