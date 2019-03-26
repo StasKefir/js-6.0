@@ -10263,7 +10263,10 @@ function modal() {
     document.body.style.overflow = "";
     console.log(mainForm);
     console.log(statusMessage);
-    mainForm.removeChild(statusMessage);
+
+    if (!(statusMessage === null || statusMessage === undefined)) {
+      mainForm.removeChild(statusMessage);
+    }
   });
 }
 

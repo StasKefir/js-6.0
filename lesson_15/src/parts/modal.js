@@ -18,8 +18,9 @@ function modal() {
         document.body.style.overflow = "";
         console.log(mainForm);
         console.log(statusMessage);
+        if(!(statusMessage=== null || statusMessage=== undefined )){
         mainForm.removeChild(statusMessage);
-
+        }
     });
 }
 
