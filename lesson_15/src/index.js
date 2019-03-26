@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', function() {
-
+    require('formdata-polyfill');
     'use strict';
 
     if ('NodeList' in window && !NodeList.prototype.forEach) {
