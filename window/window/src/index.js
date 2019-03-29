@@ -6,9 +6,11 @@ window.addEventListener('DOMContentLoaded', function(){
 
     'use strict';
 
-    let callMeasurer = require('./parts/callMeasurer');
+    let callMeasurer = require('./parts/callMeasurer'),
+        tabs = require('./parts/tabs');
 
     callMeasurer();
+    tabs();
 
 
 });

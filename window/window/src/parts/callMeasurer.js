@@ -3,9 +3,7 @@ function callMeasurer() {
 let btnCall = document.querySelector('.header_btn'),
     btnModal = document.querySelector('.popup_engineer'),
     close = document.getElementById('btn_close');
-    console.log(btnCall);
-    console.log(btnModal);
-    console.log(close);
+
 
     btnCall.addEventListener('click', function(){
         btnModal.style.display="block";

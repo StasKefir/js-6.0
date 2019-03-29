@@ -1549,9 +1549,11 @@ __webpack_require__(/*! es6-promise */ "../node_modules/es6-promise/dist/es6-pro
 window.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
-  var callMeasurer = __webpack_require__(/*! ./parts/callMeasurer */ "./parts/callMeasurer.js");
+  var callMeasurer = __webpack_require__(/*! ./parts/callMeasurer */ "./parts/callMeasurer.js"),
+      tabs = __webpack_require__(/*! ./parts/tabs */ "./parts/tabs.js");
 
   callMeasurer();
+  tabs();
 });
 
 /***/ }),
@@ -1567,9 +1569,6 @@ function callMeasurer() {
   var btnCall = document.querySelector('.header_btn'),
       btnModal = document.querySelector('.popup_engineer'),
       close = document.getElementById('btn_close');
-  console.log(btnCall);
-  console.log(btnModal);
-  console.log(close);
   btnCall.addEventListener('click', function () {
     btnModal.style.display = "block";
   });
@@ -1579,6 +1578,58 @@ function callMeasurer() {
 }
 
 module.exports = callMeasurer;
+
+/***/ }),
+
+/***/ "./parts/tabs.js":
+/*!***********************!*\
+  !*** ./parts/tabs.js ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function tabs() {
+  var tabWrapper = document.querySelector('.decoration_slider'),
+      tab = document.querySelectorAll('.btn-item'),
+      tabContent = document.querySelectorAll('.tab_content');
+
+  function hideTabContent(a) {
+    for (var i = a; i < tabContent.length; i++) {
+      tabContent[i].classList.remove('show');
+      tabContent[i].classList.add('hide');
+    }
+  }
+
+  hideTabContent(1);
+
+  function showTabContent(b) {
+    if (tabContent[b].classList.contains('hide')) {
+      tabContent[b].classList.remove('hide');
+      tabContent[b].classList.add('show');
+    }
+  }
+
+  tabWrapper.addEventListener('click', function (event) {
+    var target = event.target;
+
+    if (target && target.classList.contains('btn-item')) {
+      for (var i = 0; i < tab.length; i++) {
+        if (target == tab[i]) {
+          hideTabContent(0);
+          showTabContent(i);
+          break;
+          console.log(tab[i]);
+        }
+      }
+    } else {
+      console.log('Hello');
+    }
+
+    console.log(target);
+  });
+}
+
+module.exports = tabs;
 
 /***/ })
 

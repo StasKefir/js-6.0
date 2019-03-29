@@ -14,6 +14,7 @@ body {
 a:hover {
   text-decoration: none;
 }
+
 a:focus,
 button:focus,
 input:focus,
@@ -470,6 +471,20 @@ textarea:focus {
   padding: 2rem 0;
   background: -webkit-gradient(linear, left top, left bottom, from(#ebebeb), color-stop(0%, #ebebeb), to(rgba(255, 255, 255, 0)));
   background: linear-gradient(180deg, #ebebeb 0%, #ebebeb 0%, rgba(255, 255, 255, 0) 100%);
+}
+.show{
+  display: block;
+}
+.hide{
+  display: none;
+}
+.fade {
+  -webkit-animation-name: fade;
+          animation-name: fade;
+  -webkit-animation-duration: 2.5s;
+          animation-duration: 2.5s;
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 2.5s;
 }
 .decoration_content {
   margin-top: 8rem;
